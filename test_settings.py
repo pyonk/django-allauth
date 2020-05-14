@@ -1,14 +1,23 @@
+import os
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+PUBLIC_PGP_KEY_PATH = os.path.abspath(os.path.join(BASE_DIR, 'db/cert/public.key'))
+PRIVATE_PGP_KEY_PATH = os.path.abspath(os.path.join(BASE_DIR, 'db/cert/private.key'))
+PUBLIC_PGP_KEY = open(PUBLIC_PGP_KEY_PATH).read()
+PRIVATE_PGP_KEY = open(PRIVATE_PGP_KEY_PATH).read()
+
+
 SECRET_KEY = 'psst'
 SITE_ID = 1
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': ':memory:',
-        'USER': '',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'django-allauth',
+        'USER': 'postgres',
         'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -145,6 +154,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.yahoo',
     'allauth.socialaccount.providers.yandex',
     'allauth.socialaccount.providers.ynab',
+    'pgcrypto',
 )
 
 AUTHENTICATION_BACKENDS = (

@@ -14,15 +14,19 @@ from .adapter import get_adapter
 from .managers import EmailAddressManager, EmailConfirmationManager
 from .utils import user_email
 
+from pgcrypto.fields import EmailPGPPublicKeyField
 
 class EmailAddress(models.Model):
 
     user = models.ForeignKey(allauth_app_settings.USER_MODEL,
                              verbose_name=_('user'),
                              on_delete=models.CASCADE)
-    email = models.EmailField(unique=app_settings.UNIQUE_EMAIL,
-                              max_length=app_settings.EMAIL_MAX_LENGTH,
-                              verbose_name=_('e-mail address'))
+    # email = models.EmailField(unique=app_settings.UNIQUE_EMAIL,
+    #                           max_length=app_settings.EMAIL_MAX_LENGTH,
+    #                           verbose_name=_('e-mail address'))
+    email = EmailPGPPublicKeyField(unique=app_settings.UNIQUE_EMAIL,
+                                   max_length=app_settings.EMAIL_MAX_LENGTH,
+                                   verbose_name=_('e-mail address'))
     verified = models.BooleanField(verbose_name=_('verified'), default=False)
     primary = models.BooleanField(verbose_name=_('primary'), default=False)
 

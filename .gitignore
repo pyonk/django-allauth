@@ -10,6 +10,7 @@ dist
 *.egg*
 example/local_settings.py
 node_modules/
+.venv
 
 # Unit test / coverage reports
 htmlcov/
